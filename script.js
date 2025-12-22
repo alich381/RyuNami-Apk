@@ -1,13 +1,5 @@
 // JAM
-function updateClock(){
-  const d = new Date();
-  document.getElementById("clock").textContent =
-    d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-  document.getElementById("zone").textContent =
-    Intl.DateTimeFormat().resolvedOptions().timeZone;
-}
-setInterval(updateClock,1000);
-updateClock();
+
 
 // MUSIC MANUAL
 const music = document.getElementById("music");
@@ -22,7 +14,7 @@ function toggleMusic(){
     btn.innerHTML = '<i class="fa-solid fa-play"></i>';
   }
       }
-<script>
+
 function updateTime(){
   const now = new Date().toLocaleTimeString('id-ID', {
     timeZone: 'Asia/Jakarta',
@@ -35,4 +27,3 @@ function updateTime(){
 
 updateTime();
 setInterval(updateTime, 1000);
-</script>
