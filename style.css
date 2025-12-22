@@ -40,8 +40,8 @@ body{
 
 /* KOTAK LOGO */
 .logo-box{
-  width:90px;
-  height:60px;
+  width:100px;
+  height:80px;
 
   border-radius:16px;
   background:rgba(255,255,255,.08);
