@@ -18,34 +18,43 @@ body{
 }
 
 /* JAM + LOGO */
-.time-logo-box{
+.time-container{
   margin:50px;
-  padding:50px;
-  border-radius:50px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+  padding:40px;
+  border-radius:40px;
   background:#0b0f1f;
-  box-shadow:0 0 20px var(--neon);
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
 }
 
-#clock{
-  font-size:44px;
-  font-weight:900;
-  color:var(--neon);
+/* JAM */
+.time-box{
+  flex:1;
+  font-size:48px;
+  font-weight:700;
+  color:#4da3ff;
 }
 
-#zone{
-  font-size:30px;
-  opacity:.10;
+/* KOTAK LOGO */
+.logo-box{
+  width:90px;
+  height:60px;
+
+  border-radius:16px;
+  background:rgba(255,255,255,.08);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-.logo{
-  width:100px;
-  height:10px;
-  border-radius:60px;
+.logo-box img{
+  max-width:70%;
+  max-height:70%;
 }
-
 /* MENU */
 .menu{
   display:grid;
