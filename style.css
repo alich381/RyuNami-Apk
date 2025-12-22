@@ -64,3 +64,41 @@ button{
   color:#aaa;
   text-decoration:none;
   }
+
+.music-box{
+  margin:20px;
+  padding:18px;
+  border-radius:18px;
+  background:#0b0f1f;
+  text-align:center;
+}
+
+.visualizer{
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  height:30px;
+  margin-bottom:14px;
+}
+
+.visualizer span{
+  width:6px;
+  height:10px;
+  background:var(--neon);
+  animation:beat 1s infinite;
+}
+
+@keyframes beat{
+  0%,100%{height:10px}
+  50%{height:30px}
+}
+
+.music-box button{
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  border:none;
+  background:var(--neon);
+  color:#000;
+  font-size:20px;
+  }
