@@ -19,9 +19,9 @@ body{
 
 /* JAM + LOGO */
 .time-logo-box{
-  margin:16px;
-  padding:16px;
-  border-radius:16px;
+  margin:50px;
+  padding:50px;
+  border-radius:50px;
   display:flex;
   justify-content:space-between;
   align-items:center;
