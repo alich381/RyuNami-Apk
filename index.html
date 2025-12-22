@@ -12,19 +12,38 @@
   <div class="time-box" id="time">00:00:00</div>
 
   <div class="tools">
-    <a href="tiktok.html" class="tool">TikTok No WM</a>
-    <a href="instagram.html" class="tool">IG No WM</a>
-    <a href="youtube.html" class="tool">YouTube DL</a>
+    <a href="tt.html" class="tool">TikTok No WM</a>
+    <a href="ig.html" class="tool">IG No WM</a>
+    <a href="yt.html" class="tool">YouTube DL</a>
     <a href="ai.html" class="tool">AI Chat</a>
   </div>
 
-  <div class="music">
-    <audio id="bgm" controls loop>
-      <source src="https://files.catbox.moe/0r2vwq.m4a" type="audio/mpeg">
+<!-- MUSIC PLAYER -->
+<section class="music-section">
+  <div class="music-card glass">
+    <div class="music-header">
+      <i class="fa-solid fa-music"></i>
+      <div>
+        <div class="music-title">Replay</div>
+        <div class="music-artist">Iyaz</div>
+      </div>
+    </div>
+
+    <div class="visualizer" id="visualizer">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="controls">
+      <button onclick="toggleMusic()">
+        <i id="playIcon" class="fa-solid fa-pause"></i>
+      </button>
+    </div>
+
+    <audio id="bgMusic" controls loop>
+      <source src="" type="audio/mpeg">
     </audio>
   </div>
-</div>
-
+</section>
 <script src="script.js"></script>
 </body>
   </html>
