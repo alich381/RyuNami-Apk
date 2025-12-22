@@ -22,3 +22,17 @@ function toggleMusic(){
     btn.innerHTML = '<i class="fa-solid fa-play"></i>';
   }
       }
+<script>
+function updateTime(){
+  const now = new Date().toLocaleTimeString('id-ID', {
+    timeZone: 'Asia/Jakarta',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  });
+  document.getElementById('time').innerText = now;
+}
+
+updateTime();
+setInterval(updateTime, 1000);
+</script>
