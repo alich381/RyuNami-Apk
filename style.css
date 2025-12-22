@@ -1,0 +1,86 @@
+:root{
+  --bg:#07070b;
+  --glass:rgba(255,255,255,.08);
+  --neon:#3b82f6; /* biru default */
+  --text:#e5e7eb;
+}
+body.green { --neon:#22c55e; }
+
+*{box-sizing:border-box;font-family:system-ui}
+body{
+  margin:0;background:radial-gradient(circle at top, #120a2a, var(--bg));
+  color:var(--text);
+}
+.bg-particles{
+  position:fixed;inset:0;
+  background:radial-gradient(var(--neon) 1px, transparent 1px);
+  background-size:40px 40px;
+  opacity:.05;pointer-events:none;
+}
+
+.glass{
+  background:var(--glass);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 0 30px color-mix(in oklab, var(--neon) 35%, transparent);
+}
+
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 14px;position:sticky;top:0;z-index:9;
+}
+.title{margin:0;font-weight:700;color:var(--neon);text-shadow:0 0 12px var(--neon)}
+.icon-btn{background:none;border:none;color:var(--neon);font-size:18px}
+
+.page{display:none;padding:16px 16px 90px}
+.page.active{display:block}
+
+.hero{padding:20px;text-align:center;border-radius:18px}
+.clock #time{font-size:36px;font-weight:800;color:var(--neon)}
+.clock #zone{opacity:.7}
+
+.menu-grid{
+  margin-top:18px;
+  display:grid;grid-template-columns:repeat(2,1fr);gap:14px
+}
+.menu-card{
+  padding:18px;border-radius:18px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  background:var(--glass);
+  box-shadow:0 0 25px color-mix(in oklab, var(--neon) 30%, transparent);
+}
+.menu-card i{font-size:26px;color:var(--neon)}
+.menu-card span{font-size:13px}
+
+.tool{border-radius:18px;padding:18px}
+.tool h2{margin-top:0;color:var(--neon)}
+input{
+  width:100%;padding:12px;border-radius:12px;
+  background:#0b0b16;border:1px solid #1f2937;color:#fff
+}
+.row{display:flex;gap:10px;margin-top:10px}
+
+.neon-btn{
+  flex:1;padding:12px;border-radius:14px;border:none;
+  color:#000;font-weight:700;
+  background:var(--neon);
+  box-shadow:0 0 18px var(--neon)
+}
+
+.hint{opacity:.6;font-size:12px}
+
+.chat-box{display:flex;flex-direction:column;gap:10px}
+.chat-log{height:220px;overflow:auto}
+.bot,.user{
+  max-width:80%;padding:10px;border-radius:12px;margin-bottom:6px
+}
+.bot{background:#111827}
+.user{background:var(--neon);color:#000;margin-left:auto}
+
+.bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;
+  display:flex;justify-content:space-around;padding:10px
+}
+.bottom-nav button{
+  background:none;border:none;color:var(--neon);font-size:20px
+}
