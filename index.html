@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RyuNami Apps</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="bg-particles"></div>
+
+  <header class="topbar glass">
+    <button class="icon-btn"><i class="fa-solid fa-bars"></i></button>
+    <h1 class="title">RyuNami Apps</h1>
+    <button class="icon-btn" id="themeToggle"><i class="fa-solid fa-palette"></i></button>
+  </header>
+
+  <!-- DASHBOARD -->
+  <section id="dashboard" class="page active">
+   <div class="glass hero time-logo-container">
+  
+  <!-- JAM -->
+  <div class="time-box">
+    <div id="time" class="time-small">00:00</div>
+    <div id="zone" class="zone-small">Asia/Jakarta</div>
+  </div>
+
+  <!-- LOGO AUTO SLIDE -->
+  <div class="logo-slider">
+    <div class="logo-track">
+      <img src="https://files.catbox.moe/h7y2sd.jpg">
+      <img src="https://files.catbox.moe/sfomhw.jpg">
+      <img src="https://files.catbox.moe/nrsbve.jpg">
+      <!-- ulang biar looping -->
+      <img src="https://files.catbox.moe/h7y2sd.jpg">
+      <img src="https://files.catbox.moe/sfomhw.jpg">
+    </div>
+  </div>
+
+</div>
+
+    <div class="menu-grid">
+      <div class="menu-card" onclick="openPage('tiktok')">
+        <i class="fa-brands fa-tiktok"></i>
+        <span>TikTok No WM</span>
+      </div>
+      <div class="menu-card" onclick="openPage('instagram')">
+        <i class="fa-brands fa-instagram"></i>
+        <span>IG No WM</span>
+      </div>
+      <div class="menu-card" onclick="openPage('youtube')">
+        <i class="fa-brands fa-youtube"></i>
+        <span>YouTube DL</span>
+      </div>
+      <div class="menu-card" onclick="openPage('chat')">
+        <i class="fa-solid fa-robot"></i>
+        <span>AI Chat</span>
+      </div>
+    </div>
+  </section>
+
+<!-- MUSIC PLAYER -->
+<section class="music-section">
+  <div class="music-card glass">
+    <div class="music-header">
+      <i class="fa-solid fa-music"></i>
+      <div>
+        <div class="music-title">Replay</div>
+        <div class="music-artist">Iyaz</div>
+      </div>
+    </div>
+
+    <div class="visualizer" id="visualizer">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="controls">
+      <button onclick="toggleMusic()">
+        <i id="playIcon" class="fa-solid fa-pause"></i>
+      </button>
+    </div>
+
+<audio id="bgMusic" autoplay loop>
+  <source src="https://files.catbox.moe/uoiwkw.mp3" type="audio/mpeg">
+</audio>
+  </div>
+</section>
+
+  <!-- TIKTOK -->
+  <section id="tiktok" class="page">
+    <div class="glass tool">
+      <h2>TikTok Downloader</h2>
+      <input placeholder="Tempel link TikTok..." />
+      <button class="neon-btn">Download</button>
+      <p class="hint">UI siap • backend bisa ditambah nanti</p>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM -->
+  <section id="instagram" class="page">
+    <div class="glass tool">
+      <h2>Instagram Downloader</h2>
+      <input placeholder="Tempel link Instagram..." />
+      <button class="neon-btn">Download</button>
+    </div>
+  </section>
+
+  <!-- YOUTUBE -->
+  <section id="youtube" class="page">
+    <div class="glass tool">
+      <h2>YouTube Downloader</h2>
+      <input placeholder="Tempel link YouTube..." />
+      <div class="row">
+        <button class="neon-btn">MP3</button>
+        <button class="neon-btn">MP4</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAT -->
+  <section id="chat" class="page">
+    <div class="glass tool chat-box">
+      <div class="chat-log" id="chatLog">
+        <div class="bot">Halo 👋 ketik apa aja</div>
+      </div>
+      <div class="row">
+        <input id="chatInput" placeholder="Tulis pesan..." />
+        <button class="neon-btn" onclick="sendChat()">Kirim</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav glass">
+    <button onclick="openPage('dashboard')"><i class="fa-solid fa-house"></i></button>
+    <button onclick="openPage('tiktok')"><i class="fa-brands fa-tiktok"></i></button>
+    <button onclick="openPage('instagram')"><i class="fa-brands fa-instagram"></i></button>
+    <button onclick="openPage('youtube')"><i class="fa-brands fa-youtube"></i></button>
+    <button onclick="openPage('chat')"><i class="fa-solid fa-robot"></i></button>
+  </nav>
+
+  <script src="script.js"></script>
+</body>
+</html>
