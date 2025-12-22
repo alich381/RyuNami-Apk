@@ -32,10 +32,10 @@ body{
 
 /* JAM */
 .time-box{
-  flex:1;
-  font-size:48px;
-  font-weight:700;
+  font-size:52px;
+  font-weight:800;
   color:#4da3ff;
+  letter-spacing:2px;
 }
 
 /* KOTAK LOGO */
