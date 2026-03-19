@@ -83,17 +83,23 @@ window.pkProceed = function() {
   .then(function(r){ return r.json(); })
   .then(function(d) {
     document.getElementById('pkQrisLoading').style.display = 'none';
-    if (d && d.qr_string) {
-      // Generate QR code from qr_string
-      window._pkRenderQris(d.qr_string);
-      window._pkExpiry = d.expired_at || null;
-    } else if (d && d.qr_url) {
-      // Some responses return image URL directly
-      document.getElementById('pkQrisImg').src = d.qr_url;
+    // Coba semua kemungkinan field name dari Pakasir
+    var qrStr = d.qr_string || d.qrString || d.qr_code || d.qrcode || 
+                (d.data && (d.data.qr_string || d.data.qr_code || d.data.qrcode)) || null;
+    var qrImg = d.qr_url || d.qrUrl || d.qr_image || 
+                (d.data && (d.data.qr_url || d.data.qr_image)) || null;
+
+    if (qrStr) {
+      window._pkRenderQris(qrStr);
+    } else if (qrImg) {
+      document.getElementById('pkQrisImg').src = qrImg;
       document.getElementById('pkQrisWrap').style.display = 'block';
+      document.getElementById('pkQrisAmount').textContent = 'Rp ' + window._pkAmount.toLocaleString('id-ID');
+      document.getElementById('pkQrisProduct').textContent = window._pkProduct;
     } else {
-      // Fallback: open tab
-      document.getElementById('pkQrisErr').textContent = 'QRIS gagal di-generate. Tap tombol di bawah untuk bayar.';
+      // Tampilkan raw response untuk debug
+      var rawStr = JSON.stringify(d, null, 2);
+      document.getElementById('pkQrisErr').textContent = 'Response Pakasir: ' + rawStr;
       document.getElementById('pkQrisErr').style.display = 'block';
       var fbUrl = 'https://app.pakasir.com/pay/xzrinx/' + window._pkAmount + '?order_id=' + encodeURIComponent(window._pkOrderId);
       document.getElementById('pkOpenTab').href = fbUrl;
