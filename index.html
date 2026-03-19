@@ -95,7 +95,7 @@ window.pkProceed = function() {
       // Fallback: open tab
       document.getElementById('pkQrisErr').textContent = 'QRIS gagal di-generate. Tap tombol di bawah untuk bayar.';
       document.getElementById('pkQrisErr').style.display = 'block';
-      var fbUrl = 'https://app.pakasir.com/pay/' + window._PK_SLUG + '/' + window._pkAmount + '?order_id=' + encodeURIComponent(window._pkOrderId);
+      var fbUrl = 'https://app.pakasir.com/pay/xzrinx/' + window._pkAmount + '?order_id=' + encodeURIComponent(window._pkOrderId);
       document.getElementById('pkOpenTab').href = fbUrl;
       document.getElementById('pkOpenTab').style.display = 'inline-flex';
     }
@@ -104,7 +104,7 @@ window.pkProceed = function() {
     document.getElementById('pkQrisLoading').style.display = 'none';
     document.getElementById('pkQrisErr').textContent = 'Gagal konek ke server. Tap tombol di bawah.';
     document.getElementById('pkQrisErr').style.display = 'block';
-    var fbUrl = 'https://app.pakasir.com/pay/' + window._PK_SLUG + '/' + window._pkAmount + '?order_id=' + encodeURIComponent(window._pkOrderId);
+    var fbUrl = 'https://app.pakasir.com/pay/xzrinx/' + window._pkAmount + '?order_id=' + encodeURIComponent(window._pkOrderId);
     document.getElementById('pkOpenTab').href = fbUrl;
     document.getElementById('pkOpenTab').style.display = 'inline-flex';
   });
