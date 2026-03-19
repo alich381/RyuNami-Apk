@@ -6,8 +6,8 @@ export default async function handler(req, res) {
 
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  const SLUG   = process.env.PK_SLUG;
-  const APIKEY = process.env.PK_APIKEY;
+  const SLUG   = process.env.PK_SLUG || 'xzrinx';
+  const APIKEY = process.env.PK_APIKEY || 'xtD5iywEs2Df8HsoY0VFQ1n9oLgfTtKb';
 
   if (!SLUG || !APIKEY) {
     return res.status(500).json({ 
