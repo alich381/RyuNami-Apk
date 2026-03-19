@@ -54,3 +54,24 @@ export default async function handler(req, res) {
 
   return res.status(405).json({ error: 'Method not allowed' });
 }
+
+export default async function handler(req, res) {
+  console.log('ENV CHECK:', {
+    SLUG: process.env.PK_SLUG,
+    APIKEY: process.env.PK_APIKEY ? 'ADA' : 'TIDAK ADA'
+  });
+
+  const SLUG = process.env.PK_SLUG;
+  const APIKEY = process.env.PK_APIKEY;
+
+  if (!SLUG || !APIKEY) {
+    return res.status(500).json({
+      error: 'Pakasir credentials not set in env',
+      slugExists: !!SLUG,
+      apikeyExists: !!APIKEY,
+      slugValue: SLUG ? 'ADA' : 'TIDAK ADA',
+      apikeyValue: APIKEY ? 'ADA' : 'TIDAK ADA'
+    });
+  }
+  // sisanya...
+}
