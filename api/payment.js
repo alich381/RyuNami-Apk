@@ -80,7 +80,7 @@ export default async function handler(req, res) {
     try {
       console.log('Checking status:', { order_id, amount });
       
-      const url = `https://app.pakasir.com/api/transactiondetail?project=${encodeURIComponent(SLUG)}&amount=${encodeURIComponent(amount)}&order_id=${encodeURIComponent(order_id)}&api_key=${encodeURIComponent(APIKEY)}`;
+      const url = `https://app.pakasir.com/api/transactiondetail?project=xzrinx&amount=${encodeURIComponent(amount)}&order_id=${encodeURIComponent(order_id)}&api_key=${encodeURIComponent(APIKEY)}`;
       
       const pkRes = await fetch(url, {
         headers: {
