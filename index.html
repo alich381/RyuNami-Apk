@@ -83,23 +83,16 @@ window.pkProceed = function() {
   .then(function(r){ return r.json(); })
   .then(function(d) {
     document.getElementById('pkQrisLoading').style.display = 'none';
-    // Coba semua kemungkinan field name dari Pakasir
-    var qrStr = d.qr_string || d.qrString || d.qr_code || d.qrcode || 
-                (d.data && (d.data.qr_string || d.data.qr_code || d.data.qrcode)) || null;
-    var qrImg = d.qr_url || d.qrUrl || d.qr_image || 
-                (d.data && (d.data.qr_url || d.data.qr_image)) || null;
+    // Pakasir returns payment.payment_number as QRIS string
+    var pay = d.payment || {};
+    var qrStr = pay.payment_number || null;
+    var expiry = pay.expired_at || null;
+    var totalAmount = pay.total_payment || window._pkAmount;
 
     if (qrStr) {
-      window._pkRenderQris(qrStr);
-    } else if (qrImg) {
-      document.getElementById('pkQrisImg').src = qrImg;
-      document.getElementById('pkQrisWrap').style.display = 'block';
-      document.getElementById('pkQrisAmount').textContent = 'Rp ' + window._pkAmount.toLocaleString('id-ID');
-      document.getElementById('pkQrisProduct').textContent = window._pkProduct;
+      window._pkRenderQris(qrStr, totalAmount, expiry);
     } else {
-      // Tampilkan raw response untuk debug
-      var rawStr = JSON.stringify(d, null, 2);
-      document.getElementById('pkQrisErr').textContent = 'Response Pakasir: ' + rawStr;
+      document.getElementById('pkQrisErr').textContent = 'QRIS gagal. Tap tombol di bawah.';
       document.getElementById('pkQrisErr').style.display = 'block';
       var fbUrl = 'https://app.pakasir.com/pay/xzrinx/' + window._pkAmount + '?order_id=' + encodeURIComponent(window._pkOrderId);
       document.getElementById('pkOpenTab').href = fbUrl;
@@ -116,13 +109,21 @@ window.pkProceed = function() {
   });
 };
 
-window._pkRenderQris = function(qrString) {
-  var qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=' + encodeURIComponent(qrString);
+window._pkRenderQris = function(qrString, totalAmount, expiry) {
+  var qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=' + encodeURIComponent(qrString);
   document.getElementById('pkQrisImg').src = qrUrl;
   document.getElementById('pkQrisWrap').style.display = 'block';
   document.getElementById('pkQrisString').value = qrString;
-  document.getElementById('pkQrisAmount').textContent = 'Rp ' + window._pkAmount.toLocaleString('id-ID');
+  var amt = totalAmount || window._pkAmount;
+  document.getElementById('pkQrisAmount').textContent = 'Rp ' + amt.toLocaleString('id-ID');
   document.getElementById('pkQrisProduct').textContent = window._pkProduct;
+  // Show expiry if available
+  if (expiry) {
+    var exp = new Date(expiry);
+    var mins = Math.round((exp - new Date()) / 60000);
+    var expEl = document.getElementById('pkQrisExpiry');
+    if (expEl) expEl.textContent = 'Berlaku ' + (mins > 0 ? mins + ' menit lagi' : 'segera kadaluarsa');
+  }
 };
 
 window.pkCheckNow = function() {
@@ -139,7 +140,10 @@ window.pkCheckNow = function() {
     .then(function(d) {
       btn.textContent = 'Cek Status →';
       btn.disabled = false;
-      if (d.transaction && d.transaction.status === 'completed') {
+      // Pakasir returns payment.status
+      var pay = d.payment || d.transaction || {};
+      var status = pay.status || d.status || '';
+      if (status === 'completed' || status === 'paid' || status === 'success') {
         window._pkSetStatus('completed');
         var n = window._pkName, t = window._pkTg;
         window.open('https://t.me/xzrinx?text=' + encodeURIComponent(
@@ -149,7 +153,7 @@ window.pkCheckNow = function() {
           '\nNama: ' + n + '\nTG: ' + t
         ), '_blank');
       } else {
-        msg.textContent = 'Belum terbayar. Status: ' + ((d.transaction && d.transaction.status) || 'pending');
+        msg.textContent = 'Belum terbayar. Status: ' + (status || 'pending');
         msg.style.display = 'block';
       }
     })
@@ -733,6 +737,7 @@ footer p { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0
           </div>
           <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:4px;" id="pkQrisAmount"></div>
           <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gray);" id="pkQrisProduct"></div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:#e06c75;margin-top:6px;" id="pkQrisExpiry"></div>
         </div>
         <div style="border:1px solid var(--border);border-top:none;padding:14px 20px;background:rgba(245,244,240,0.01);">
           <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;">QRIS String (untuk payment app)</div>
