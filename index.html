@@ -9,8 +9,8 @@
 <!-- ALL FUNCTIONS IN HEAD — survives Cloudflare email-decode script injection -->
 <script>
 // ── CONFIG ──────────────────────────────
-window._pkAmount  = 150000;
-window._pkProduct = 'Telegram Bot Starter';
+window._pkAmount  = 10000;
+window._pkProduct = 'Reseller VPS';
 window._pkOrderId = '';
 window._pkPollId  = null;
 
@@ -39,12 +39,41 @@ window.closePage = function(name) {
 
 // ── PAKASIR ─────────────────────────────
 window.pkUpdateOrder = function(val) {
+  var panelWrap = document.getElementById('panelStorageWrap');
+  if (val === 'panel:Panel Pterodactyl') {
+    // Panel — show storage selector, use default 1GB
+    panelWrap.style.display = 'block';
+    var storageVal = document.getElementById('panelStorage').value;
+    window.pkUpdatePanel(storageVal);
+    return;
+  }
+  panelWrap.style.display = 'none';
   var p = val.split(':');
   window._pkAmount = parseInt(p[0]); window._pkProduct = p[1];
   var fmt = 'Rp ' + window._pkAmount.toLocaleString('id-ID');
   document.getElementById('pkOrderName').textContent  = window._pkProduct;
   document.getElementById('pkOrderPrice').textContent = fmt;
   document.getElementById('pkOrderTotal').textContent = fmt;
+};
+
+window.pkUpdatePanel = function(val) {
+  var p = val.split(':');
+  window._pkAmount = parseInt(p[0]);
+  window._pkProduct = 'Panel Pterodactyl ' + p[1];
+  var fmt = 'Rp ' + window._pkAmount.toLocaleString('id-ID');
+  document.getElementById('pkOrderName').textContent  = window._pkProduct;
+  document.getElementById('pkOrderPrice').textContent = fmt;
+  document.getElementById('pkOrderTotal').textContent = fmt;
+};
+
+window.pkPreselectPanel = function() {
+  var sel = document.getElementById('pkProduct');
+  for (var i = 0; i < sel.options.length; i++) {
+    if (sel.options[i].value === 'panel:Panel Pterodactyl') {
+      sel.selectedIndex = i; break;
+    }
+  }
+  window.pkUpdateOrder('panel:Panel Pterodactyl');
 };
 window.pkProceed = function() {
   var name = document.getElementById('pkName').value.trim();
@@ -316,19 +345,12 @@ window.tgStalk = function() {
       if(r.is_bot)badgesEl.innerHTML+=bs('Bot','#777');
       var fields=[{l:'ID',v:r.id||'—'},{l:'Type',v:r.type||'—'},{l:'Bot',v:r.is_bot?'Yes':'No'},{l:'Verified',v:r.verified?'Yes':'No'},{l:'Scam',v:r.scam?'Yes':'No'},{l:'Fake',v:r.fake?'Yes':'No'}];
       document.getElementById('tgFields').innerHTML=fields.map(function(f){return'<div style="background:#0a0a0a;padding:14px 16px;"><div style="font-family:\'DM Mono\',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:#777;margin-bottom:5px;">'+f.l+'</div><div style="font-family:\'DM Mono\',monospace;font-size:12px;color:#f5f4f0;word-break:break-all;">'+f.v+'</div></div>';}).join('');
-      document.getElementById('tgRawText').value=JSON.stringify(data,null,2);
-      document.getElementById('tgRaw').style.display='none';
       document.getElementById('tgResult').style.display='block';
     }).catch(function(){
       document.getElementById('tgLoading').style.display='none';
       document.getElementById('tgError').textContent='✗ Gagal konek ke API.';
       document.getElementById('tgError').style.display='block';
     });
-};
-window.tgToggleRaw = function(btn) {
-  var el=document.getElementById('tgRaw'),show=el.style.display==='none';
-  el.style.display=show?'block':'none';
-  btn.textContent=show?'Hide Raw JSON':'Show Raw JSON';
 };
 </script>
 
@@ -636,44 +658,44 @@ footer p { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0
     </div>
     <div class="products-grid">
       <div class="product-card">
-        <div class="product-badge new">New</div>
-        <h3>Telegram Bot Starter</h3>
-        <p>Bot siap pakai dengan session encryption, brute-force protection, dan command structure bersih.</p>
-        <div class="product-price">Rp 150k <span>/ one-time</span></div>
+        <div class="product-badge new">Hot</div>
+        <h3>Reseller VPS</h3>
+        <p>Reseller VPS siap pakai, bisa langsung jual ke customer kamu sendiri.</p>
+        <div class="product-price">Rp 10k <span>/ bulan</span></div>
         <ul class="product-features">
-          <li>AES-256 Session Encryption</li><li>Brute-force Protection</li><li>Custom Command Handler</li><li>JSON State Persistence</li><li>Obfuscated Output</li>
+          <li>Akses Reseller Panel</li><li>Support 24/7</li><li>Setup Cepat</li>
         </ul>
         <a href="#" class="product-btn primary" onclick="closePage('products');openPage('payment');return false;">Get this →</a>
       </div>
       <div class="product-card">
         <div class="product-badge">Popular</div>
-        <h3>Single-File Web App</h3>
-        <p>Satu file HTML dengan fitur lengkap — PWA support, localStorage, tema, dan responsive.</p>
-        <div class="product-price">Rp 100k <span>/ one-time</span></div>
+        <h3>Portofolio Auto Order</h3>
+        <p>Web portofolio dengan sistem order otomatis terintegrasi payment gateway.</p>
+        <div class="product-price">Rp 15k <span>/ one-time</span></div>
         <ul class="product-features">
-          <li>PWA Support</li><li>localStorage Persistence</li><li>Dark / Light Theme</li><li>Mobile Responsive</li><li>No Dependencies</li>
+          <li>Payment Gateway</li><li>Auto Delivery Bot</li><li>Mobile Responsive</li>
+        </ul>
+        <a href="#" class="product-btn" onclick="closePage('products');openPage('payment');return false;">Get this →</a>
+      </div>
+      <div class="product-card">
+        <div class="product-badge">New</div>
+        <h3>AM Premium</h3>
+        <p>Akun AM Premium siap pakai, langsung aktif setelah pembayaran.</p>
+        <div class="product-price">Rp 5k <span>/ bulan</span></div>
+        <ul class="product-features">
+          <li>Langsung Aktif</li><li>Garansi Valid</li><li>Support via TG</li>
         </ul>
         <a href="#" class="product-btn" onclick="closePage('products');openPage('payment');return false;">Get this →</a>
       </div>
       <div class="product-card">
         <div class="product-badge">Custom</div>
-        <h3>Full Bot System</h3>
-        <p>Gacha bot, panel bot, atau custom bot sesuai kebutuhan. Modular dan scalable.</p>
-        <div class="product-price">Rp 350k <span>/ project</span></div>
+        <h3>Panel Pterodactyl</h3>
+        <p>Panel Pterodactyl dengan pilihan storage sesuai kebutuhan, dari 1GB sampai Unlimited.</p>
+        <div class="product-price">Rp 2k+ <span>/ bulan</span></div>
         <ul class="product-features">
-          <li>Modular Architecture</li><li>Admin Panel</li><li>Leaderboard &amp; Missions</li><li>Channel Gate System</li><li>Free Minor Revision</li>
+          <li>1GB – Unlimited Storage</li><li>Full Panel Access</li><li>Setup Instan</li>
         </ul>
-        <a href="#" class="product-btn" onclick="closePage('products');openPage('payment');return false;">Get this →</a>
-      </div>
-      <div class="product-card">
-        <div class="product-badge">Service</div>
-        <h3>Consultation</h3>
-        <p>Review kode, debug, atau brainstorm arsitektur project kamu. 1-on-1 via Telegram.</p>
-        <div class="product-price">Rp 75k <span>/ session</span></div>
-        <ul class="product-features">
-          <li>Code Review</li><li>Bug Hunting</li><li>Architecture Planning</li><li>1 Hour Session</li><li>Follow-up Notes</li>
-        </ul>
-        <a href="#" class="product-btn" onclick="closePage('products');openPage('payment');return false;">Book now →</a>
+        <a href="#" class="product-btn" onclick="closePage('products');openPage('payment');pkPreselectPanel();return false;">Get this →</a>
       </div>
     </div>
   </div>
@@ -692,11 +714,27 @@ footer p { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0
       <div class="form-group">
         <label class="form-label">Produk</label>
         <select class="form-input" id="pkProduct" onchange="pkUpdateOrder(this.value)">
-          <option value="150000:Telegram Bot Starter">Telegram Bot Starter — Rp 150.000</option>
-          <option value="100000:Single-File Web App">Single-File Web App — Rp 100.000</option>
-          <option value="350000:Full Bot System">Full Bot System — Rp 350.000</option>
-          <option value="75000:Consultation (1 jam)">Consultation — Rp 75.000</option>
+          <option value="10000:Reseller VPS">Reseller VPS — Rp 10.000</option>
+          <option value="15000:Portofolio Auto Order">Portofolio Auto Order — Rp 15.000</option>
+          <option value="5000:AM Premium">AM Premium — Rp 5.000</option>
+          <option value="panel:Panel Pterodactyl">Panel Pterodactyl (pilih storage) ↓</option>
         </select>
+        <!-- Panel storage selector, muncul kalau pilih Panel -->
+        <div id="panelStorageWrap" style="display:none;margin-top:10px;">
+          <label class="form-label">Pilih Storage</label>
+          <select class="form-input" id="panelStorage" onchange="pkUpdatePanel(this.value)">
+            <option value="2000:1GB">1GB — Rp 2.000</option>
+            <option value="2000:2GB">2GB — Rp 2.000</option>
+            <option value="2000:3GB">3GB — Rp 2.000</option>
+            <option value="2000:4GB">4GB — Rp 2.000</option>
+            <option value="2000:5GB">5GB — Rp 2.000</option>
+            <option value="2000:6GB">6GB — Rp 2.000</option>
+            <option value="5000:7GB">7GB — Rp 5.000</option>
+            <option value="8000:8GB">8GB — Rp 8.000</option>
+            <option value="9000:9GB">9GB — Rp 9.000</option>
+            <option value="5000:Unlimited">Unlimited — Rp 5.000</option>
+          </select>
+        </div>
       </div>
       <div class="form-group"><label class="form-label">Nama lengkap</label><input class="form-input" type="text" id="pkName" placeholder="John Doe"></div>
       <div class="form-group"><label class="form-label">Telegram username</label><input class="form-input" type="text" id="pkTg" placeholder="@username"></div>
@@ -704,12 +742,12 @@ footer p { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0
       <div style="border:1px solid var(--border);padding:20px;margin:24px 0;background:rgba(245,244,240,0.02);">
         <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gray);margin-bottom:16px;">Order Summary</div>
         <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--border);">
-          <div><div id="pkOrderName" style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;">Telegram Bot Starter</div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gray);margin-top:2px;">One-time license</div></div>
-          <div id="pkOrderPrice" style="font-family:'DM Mono',monospace;font-size:13px;">Rp 150.000</div>
+          <div><div id="pkOrderName" style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;">Reseller VPS</div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gray);margin-top:2px;">One-time license</div></div>
+          <div id="pkOrderPrice" style="font-family:'DM Mono',monospace;font-size:13px;">Rp 10.000</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;padding-top:14px;">
           <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gray);">Total</div>
-          <div id="pkOrderTotal" style="font-family:'Playfair Display',serif;font-size:26px;font-weight:700;">Rp 150.000</div>
+          <div id="pkOrderTotal" style="font-family:'Playfair Display',serif;font-size:26px;font-weight:700;">Rp 10.000</div>
         </div>
       </div>
       <div id="pkErrMsg" style="display:none;font-family:'DM Mono',monospace;font-size:11px;color:#e06c75;padding:12px;border:1px solid rgba(224,108,117,0.2);margin-bottom:16px;"></div>
@@ -885,11 +923,7 @@ footer p { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0
             <div id="tgBio" style="font-size:13px;color:rgba(245,244,240,0.5);line-height:1.7;margin-bottom:20px;display:none;padding-bottom:20px;border-bottom:1px solid var(--border);"></div>
             <div id="tgFields" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);"></div>
           </div>
-          <div style="margin-top:12px;"><button class="btn-sm" onclick="tgToggleRaw(this)">Show Raw JSON</button></div>
-          <div id="tgRaw" style="display:none;margin-top:8px;">
-            <textarea class="tool-textarea" id="tgRawText" style="min-height:180px;" readonly></textarea>
-            <button class="btn-sm" style="margin-top:8px;" onclick="navigator.clipboard.writeText(document.getElementById('tgRawText').value)">Copy JSON</button>
-          </div>
+
         </div>
       </div>
     </div>
